@@ -12,11 +12,6 @@ import prompt.update_hints
 WINDOW_SIZE = 1000
 INCREMENT = 700
 
-def load_text(file, encoding="utf-8"):
-    # this should be able to load chinese
-    with open(file, "r", encoding=encoding) as f:
-        return f.read()
-
 
 class EventParser:
     def __init__(self,save_dir:str,text: str,llm:BaseLLM, increment = INCREMENT, window_size = WINDOW_SIZE):

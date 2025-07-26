@@ -1,0 +1,16 @@
+missed “A man?” said Sue, with a jew's-harp twang in her voice. “Is a man worth—but, no, doctor; there is nothing of the kind.”
+correct Sue went into the workroom and cried a Japanese napkin to a pulp.
+missed She went quickly to the bedside.
+correct Sue looked solicitously out the window. What was there to count?
+correct “Oh, I never heard of such nonsense,” complained Sue, with magnificent scorn. “What have old ivy leaves to do with your getting well?
+correct “I'd rather be here by you,” said Sue. “Besides, I don't want you to keep looking at those silly ivy leaves.”
+missed She told him of Johnsy's fancy, and how she feared she would, indeed, light and fragile as a leaf herself, float away when her slight hold upon the world grew weaker.
+wrong Vass!\u201d he cried. \u201cIs dere people in de world mit der foolishness to die because leafs dey drop off from a confounded
+missed Wearily Sue obeyed.
+correct “Dear, dear!” said Sue, leaning her worn face down to the pillow, “think of me, if you won't think of yourself. What would I do?”
+wrong Sudie, some day I hope to paint the Bay of Naples.
+wrong Even chances,\u201d said the doctor, taking Sue's thin, shaking hand in his.
+correct Sue came to the bed where Johnsy lay, contentedly knitting a very blue and very useless woolen shoulder scarf, and put one arm around her, pillows and all.
+correct Ah, darling, it's Behrman's masterpiece—he painted it there the night that the last leaf fell.”
+
+summary: hit 7, miss 4, wrong 3
