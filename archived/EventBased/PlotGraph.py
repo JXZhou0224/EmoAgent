@@ -36,7 +36,6 @@ class Timeline(BaseModel):
         self.custom_init()
 
     def custom_init(self):
-        print("AHA")
         self.events.add(self.init_event)
         self.events.add(self.final_event)
         self.edges[self.init_event] = set([self.final_event])

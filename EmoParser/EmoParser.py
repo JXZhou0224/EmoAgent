@@ -5,7 +5,7 @@ from .prompt import extract_emo_pairs
 from utils import dump_jsonl
 
 WINDOW_SIZE = 4000
-OVERLAP = 0
+OVERLAP = 1000
 
 class EmoParser:
     def __init__(self,save_dir:str,llm: BaseLLM,text,main_character,window_size = WINDOW_SIZE, overlap = OVERLAP):
@@ -21,15 +21,19 @@ class EmoParser:
 
     def run(self):
         cur_loc = 0
+        pronoun_mapping = {}
+        lst_text = ""
         while cur_loc != len(self.text):
             cur_text, tail = self.get_text_window(cur_loc)
-            self.emo_pairs += self.extract_emo_pairs(cur_loc,cur_text)
+            pronoun_mapping = self.update_pronoun(lst_text,cur_text,pronoun_mapping)
+            self.emo_pairs += self.extract_emo_pairs(cur_loc,cur_text,lst_text)
             if tail == len(self.text):
                 break
-            cur_loc += WINDOW_SIZE - OVERLAP
+            cur_loc += WINDOW_SIZE
+            lst_text = cur_text
             self.save()
             
-    def extract_emo_pairs(self,cur_loc: int,cur_text: str) -> list[dict[str,str | int]]:
+    def extract_emo_pairs(self,cur_loc: int,cur_text: str,lst_text: str) -> list[dict[str,str | int]]:
         '''
         emo_pair:
         {
@@ -40,7 +44,11 @@ class EmoParser:
             "emotion": "generic classification of emotion"
         }
         '''
-        prompt = extract_emo_pairs.extract_emo_pairs_template.format(text = cur_text,main_character = self.main_character)
+        prompt = extract_emo_pairs.extract_emo_pairs_template.format(
+            text = cur_text,
+            main_character = self.main_character,
+            lst_text = lst_text
+        )
         response = self.llm.generate(prompt)
         if(response == "None"):
             return []
@@ -58,6 +66,14 @@ class EmoParser:
         print(ret)
         return ret
 
+    def update_pronoun(self,lst_text:str,cur_text,pronoun_mapping:dict[str,str]) -> dict[str,str]:
+        '''
+        TODO: update the pronoun mapping, return the updated mapping
+        '''
+        cur_prompt = extract_emo_pairs.update_pronoun_template.format(lst_text=lst_text,text=cur_text,pronoun_mapping=pronoun_mapping)
+        response = self.llm.generate(cur_prompt)
+        pronoun_mapping = json.loads(response)
+        return pronoun_mapping
     
     def get_text_window(self,start) -> tuple[str,int]:
         if(start == len(self.text)):
